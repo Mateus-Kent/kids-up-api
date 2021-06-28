@@ -4,6 +4,6 @@ import ParentController from "./controllers/ParentController";
 
 const router = Router();
 
-router.post('/parents', ParentController.store);
+router.post('/parents', (req, res) => ParentController.store(req, res));
 
 export default router;
