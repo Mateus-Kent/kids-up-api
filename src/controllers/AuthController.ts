@@ -8,7 +8,7 @@ import Parent from '../models/Parent';
 class AuthController{
 async authenticate(req: Request, res: Response){
   const repository = getRepository(Parent);
-  const { username, email, phone_number, password, profile_photo } = req.body;
+  const { email,  password} = req.body;
 
   const parent = await repository.findOne({ where: { email }});
    
