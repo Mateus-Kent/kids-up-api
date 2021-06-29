@@ -26,7 +26,6 @@ export class CreateUsersTable1624901494885 implements MigrationInterface {
             {
                 name: 'phone_number',
                 type: 'varchar',
-                isUnique: true,
             },
             {
                 name: 'password',
