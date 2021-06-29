@@ -11,10 +11,10 @@ async store(req: Request, res: Response){
   const parentExists = await repository.findOne({ where: { email }});
    
   if(parentExists) {
-   return res.sendStatus(409)
+   return res.status(409).json({ message: "This parent already exists" })
   }
 
-  const parent = repository.create({ username, email, phone_number, password, profile_photo })
+  const parent = await repository.create({ username, email, phone_number, password, profile_photo })
   await repository.save(parent);
 
   return res.json(parent);
