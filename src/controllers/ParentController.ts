@@ -4,6 +4,11 @@ import { getRepository } from 'typeorm'
 import Parent from '../models/Parent'
 
 class ParentController{
+
+  index(req: Request , res: Response) {
+    return res.send('ok');
+  }
+
 async store(req: Request, res: Response){
   const repository = getRepository(Parent);
   const { username, email, phone_number, password, profile_photo } = req.body;
