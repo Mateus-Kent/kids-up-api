@@ -11,6 +11,7 @@ router.post('/parents',celebrate({
  [Segments.BODY]: Joi.object().keys({
    username: Joi.string().required(),
    email: Joi.string().email(),
+   phone_number: Joi.string().required(),
    password: Joi.string().min(4).max(22).required(),
    profile_photo: Joi.string().required(),
  }),
