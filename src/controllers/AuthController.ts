@@ -22,12 +22,33 @@ async authenticate(req: Request, res: Response){
     return res.status(401).json({ message: "This password don't exists" });
   }
  
-  const token = jwt.sign({ id: parent.id}, 'secret', {});
+  const token = jwt.sign({ ...parent }, 'secret', {});
 
   return res.json({
     parent,
     token,
   });
 }
+
+async register(req: Request, res: Response){
+  const repository = getRepository(Parent);
+  const { username, email, phone_number, password, profile_photo } = req.body;
+
+  const parentExists = await repository.findOne({ where: { email }});
+   
+  if(parentExists) {
+   return res.status(409).json({ message: "This parent already exists" })
+  }
+
+  const parent = await repository.create({ username, email, phone_number, password, profile_photo })
+  await repository.save(parent);
+
+  const token = jwt.sign({ ...parent }, 'secret', {expiresIn: '23s'});
+
+  console.log(req.headers)
+
+  return res.json({ parent, token });
+}
+
 }
 export default new AuthController();

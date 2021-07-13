@@ -18,12 +18,12 @@ router.post('/parents',celebrate({
      return value;
    }),
    password: Joi.string().min(4).max(22).required(),
-   profile_photo: Joi.string().required(),
+   profile_photo: Joi.string()
  }),
- [Segments.QUERY]: {
-   token: Joi.string().token().required()
- }
-}), (req, res) =>  ParentController.store(req, res));
+//  [Segments.QUERY]: {
+//    token: Joi.string().token().required()
+//  }
+}), (req, res) =>  AuthController.register(req, res));
 
 
 
