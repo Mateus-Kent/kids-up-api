@@ -19,15 +19,17 @@ router.post('/parents',celebrate({
    }),
    password: Joi.string().min(4).max(22).required(),
    profile_photo: Joi.string()
- }),
-//  [Segments.QUERY]: {
-//    token: Joi.string().token().required()
-//  }
+ })
 }), (req, res) =>  AuthController.register(req, res));
 
 
-
-router.post('/auth', (req, res) => AuthController.authenticate(req, res));
+router.post('/auth',  celebrate({
+  [Segments.BODY]: Joi.object().keys({
+    email: Joi.string().email().lowercase().required(),
+    password: Joi.string().min(4).max(22).required(),
+   })
+ }),
+  (req, res) => AuthController.authenticate(req, res));
 
 router.get('/parents', Middleware, (req, res) =>  ParentController.index(req, res));
 
