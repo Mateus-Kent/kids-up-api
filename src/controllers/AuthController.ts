@@ -19,7 +19,7 @@ async authenticate(req: Request, res: Response){
   const isValidPassword = await bcrypt.compare(password, parent.password);
 
   if(!isValidPassword) {
-    return res.status(401).json({ message: "This password don't exists" });
+    return res.status(401).json({ message: "This password is not the same" });
   }
  
   const token = jwt.sign({ ...parent }, 'secret', {});
@@ -43,7 +43,7 @@ async register(req: Request, res: Response){
   const parent = await repository.create({ username, email, phone_number, password, profile_photo })
   await repository.save(parent);
 
-  const token = jwt.sign({ ...parent }, 'secret', {expiresIn: '23s'});
+  const token = jwt.sign({ ...parent }, 'secret', {});
 
   console.log(req.headers)
 
