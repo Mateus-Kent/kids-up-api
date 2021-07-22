@@ -31,7 +31,7 @@ router.post('/auth',  celebrate({
  }),
   (req, res) => AuthController.authenticate(req, res));
 
-router.get('/parents', Middleware, (req, res) =>  ParentController.index(req, res));
+router.patch('/parents', (req, res) =>  ParentController.UpdateUsername(req, res));
 
 router.use(errors());
 
