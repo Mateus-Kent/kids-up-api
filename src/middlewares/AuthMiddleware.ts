@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction} from 'express';
 import jwt from 'jsonwebtoken'
 
-export default function authMiddle(req: Request, res: Response, next: NextFunction){
+export default async function authMiddle(req: Request, res: Response, next: NextFunction){
 
  const { authorization } = req.headers;
 
@@ -12,8 +12,11 @@ export default function authMiddle(req: Request, res: Response, next: NextFuncti
  const token = authorization.replace('Bearer', '').trim();
 
  try{
-  const data = jwt.verify(token, 'secret');
-  console.log(data);
+  const data = await jwt.verify(token, 'secret');
+
+  req.user = data;
+  console.log(req.user);
+  next();
  } catch {
   return res.status(401).json({ message: "Have to be a authorization" });
  }
