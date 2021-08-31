@@ -23,7 +23,7 @@ class AuthController {
       return res.status(401).json({ message: "This password is not the same" });
     }
 
-    const token = jwt.sign({ ...parent }, "secret", { expiresIn: '30s'});
+    const token = jwt.sign({ ...parent }, "secret", {});
 
     return res.json({
       parent,
