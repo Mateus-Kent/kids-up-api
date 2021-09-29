@@ -1,5 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, Column, BeforeInsert, BeforeUpdate } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, BeforeInsert, BeforeUpdate, OneToMany, ManyToOne } from 'typeorm';
 import bcrypt from 'bcryptjs';
+import Message from './Message'
 
 @Entity('parents')
 class Parent {
@@ -21,9 +22,16 @@ class Parent {
  @Column()
  profile_photo: string;
 
+ @OneToMany(type => Message, parent => Parent)
+ messages: Message[];
+
+ @Column()
+ isCaregiver: boolean;
+
+
  @BeforeInsert()
  @BeforeUpdate()
- hashPassword(){
+ hashPassword() {
   this.password = bcrypt.hashSync(this.password, 8);
  }
 }
