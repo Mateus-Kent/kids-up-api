@@ -1,5 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn} from 'typeorm';
-import  Parent  from './Parent'
+import  User  from './User'
 
 @Entity('messages')
 class Message {
@@ -12,11 +12,11 @@ class Message {
  @Column()
  send_at: Date;
 
- @ManyToOne(type => Parent , message => Message)
- messenger: Parent;
+ @ManyToOne(type => User , message => Message)
+ messenger: User;
 
- @ManyToOne(type => Parent ,  message => Message)
- receiver: Parent;
+ @ManyToOne(type => User ,  message => Message)
+ receiver: User;
 
  @Column()
  isViewed: boolean;

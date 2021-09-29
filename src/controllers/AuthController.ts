@@ -3,54 +3,54 @@ import { getRepository } from "typeorm";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
-import Parent from "../models/Parent";
+import User from "../models/User";
 
 class AuthController {
 
   async authenticate(req: Request, res: Response) {
-    const repository = getRepository(Parent);
+    const repository = getRepository(User);
     const { email, password } = req.body;
 
-    const parent = await repository.findOne({ where: { email } });
+    const user = await repository.findOne({ where: { email } });
 
-    if (!parent) {
+    if (!user) {
       return res.status(401).json({ message: "This user don't exists" });
     }
 
-    const isValidPassword = await bcrypt.compare(password, parent.password);
+    const isValidPassword = await bcrypt.compare(password, user.password);
 
     if (!isValidPassword) {
       return res.status(401).json({ message: "This password is not the same" });
     }
 
-    const token = jwt.sign({ ...parent }, "secret", {});
+    const token = jwt.sign({ ...user }, "secret", {});
 
     return res.json({
-      parent,
+      user,
       token,
     });
   }
 
   async register(req: Request, res: Response) {
-    const repository = getRepository(Parent);
+    const repository = getRepository(User);
     const { username, email, phone_number, password, profile_photo } = req.body;
 
-    const parentExists = await repository.findOne({ where: { email } });
+    const userExists = await repository.findOne({ where: { email } });
 
-    if (parentExists) {
+    if (userExists) {
       return res.status(409).json({ message: "This parent already exists" });
     }
 
-    const parent = await repository.create({
+    const user = await repository.create({
       username,
       email,
       phone_number,
       password,
       profile_photo,
     });
-    await repository.save(parent);
+    await repository.save(user);
 
-    const token = jwt.sign({ ...parent }, "secret", {});
+    const token = jwt.sign({ ...user }, "secret", {});
 
     console.log(req.headers);
 

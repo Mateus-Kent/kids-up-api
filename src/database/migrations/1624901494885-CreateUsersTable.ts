@@ -6,7 +6,7 @@ export class CreateUsersTable1624901494885 implements MigrationInterface {
         await queryRunner.query('CREATE EXTENSION IF NOT EXISTS "uuid-ossp"')
 
         await queryRunner.createTable(new Table({
-            name: 'parents',
+            name: 'users',
             columns: [{
                 name: 'id',
                 type: 'uuid',

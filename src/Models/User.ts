@@ -2,8 +2,8 @@ import { Entity, PrimaryGeneratedColumn, Column, BeforeInsert, BeforeUpdate, One
 import bcrypt from 'bcryptjs';
 import Message from './Message'
 
-@Entity('parents')
-class Parent {
+@Entity('users')
+class User {
  @PrimaryGeneratedColumn('uuid')
  id: string;
 
@@ -22,7 +22,7 @@ class Parent {
  @Column()
  profile_photo: string;
 
- @OneToMany(type => Message, parent => Parent)
+ @OneToMany(type => Message, user => User)
  messages: Message[];
 
  @Column()
@@ -36,4 +36,4 @@ class Parent {
  }
 }
 
-export default Parent;
+export default User;

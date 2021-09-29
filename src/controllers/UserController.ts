@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
 import { getRepository } from "typeorm";
 
-import Parent from "../models/Parent";
+import User from "../models/User";
 
-class ParentController {
+class UserController {
   async Update(req: Request, res: Response) {
     const { email } = req.user;
 
@@ -11,7 +11,7 @@ class ParentController {
 
     const toUpdate = req.body;
 
-    const repository = await getRepository(Parent);
+    const repository = await getRepository(User);
 
     if (!email) {
       return res.status(401).json({ message: "The field email is necessary" });
@@ -19,20 +19,19 @@ class ParentController {
 
     console.log("passou email")
 
-    const parent = await repository.findOne({ email });
+    const user = await repository.findOne({ email });
 
-    if (!parent) {
+    if (!user) {
       return res.status(401).json({ message: "This user don't exist" });
     }
 
-    console.log("passou parent")
 
     console.log(toUpdate)
 
-    await repository.update(parent, toUpdate);
+    await repository.update(user, toUpdate);
 
-    return res.json({ ...parent, ...toUpdate });
+    return res.json({ ...user, ...toUpdate });
   }
 }
 
-export default new ParentController();
+export default new UserController();

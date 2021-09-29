@@ -2,7 +2,7 @@ import { Router } from "express";
 import { celebrate, Joi, Segments, errors } from "celebrate";
 
 import Middleware from "./middlewares/AuthMiddleware";
-import ParentController from "./controllers/ParentController";
+import UserController from "./controllers/UserController";
 import AuthController from "./controllers/AuthController";
 
 const router = Router();
@@ -43,7 +43,7 @@ router.post(
   (req, res) => AuthController.authenticate(req, res)
 );
 
-router.put("/parents", Middleware, (req, res) => ParentController.Update(req, res));
+router.put("/parents", Middleware, (req, res) => UserController.Update(req, res));
 
 router.use(errors());
 
