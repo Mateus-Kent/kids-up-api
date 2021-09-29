@@ -38,7 +38,7 @@ class AuthController {
     const userExists = await repository.findOne({ where: { email } });
 
     if (userExists) {
-      return res.status(409).json({ message: "This parent already exists" });
+      return res.status(409).json({ message: "This user already exists" });
     }
 
     const user = await repository.create({
@@ -47,14 +47,17 @@ class AuthController {
       phone_number,
       password,
       profile_photo,
+      isCaregiver: false
     });
     await repository.save(user);
 
+
     const token = jwt.sign({ ...user }, "secret", {});
+
 
     console.log(req.headers);
 
-    return res.json({ parent, token });
+    return res.json({ user, token });
   }
 }
 export default new AuthController();
