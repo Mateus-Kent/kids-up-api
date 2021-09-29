@@ -35,6 +35,10 @@ export class CreateUsersTable1624901494885 implements MigrationInterface {
                 name: 'profile_photo',
                 type: 'varchar',
             },
+            {
+                name: 'isCaregiver',
+                type: 'boolean',
+            }
         ],
         }));
     }
