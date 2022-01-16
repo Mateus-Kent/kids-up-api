@@ -94,8 +94,19 @@ npm install
 npm run dev
 ```
 
-### typeorm
+## 🏦 Scripts for typeorm 
  
+ ### To run the migrations
 ```bash
-npm typeorm
+npm typeorm migration:generate 
+```
+
+### To revert the most recently executed migration use the following command:
+```bash
+npm typeorm migration:revert
+```
+
+### To show all migrations
+```bash
+npm typeorm migration:show
 ```
