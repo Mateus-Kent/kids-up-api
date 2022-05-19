@@ -5,7 +5,7 @@ An API made for users to create accounts and manage them.
 ## :sparkles: Routes 
 
 - `localhost:3000/parents` : the route for update the data of the users 
-https://github.com/Mateus-Kent/kids-up-api.git
+
 - `localhost:3000/auth` :  the route for login and authenticate
 
 ## :video_game: Usage
